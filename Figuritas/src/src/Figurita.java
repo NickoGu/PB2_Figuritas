@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Objects;
+
 public class Figurita implements Comparable<Figurita> {
 
 	private String letraGrupo;
@@ -56,6 +58,26 @@ public class Figurita implements Comparable<Figurita> {
 
 	public void setIdentificadorUnico() {
 		this.identificadorUnico = this.seleccion + this.numeroFigurita;
+	}
+
+	
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(identificadorUnico);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+		Figurita other = (Figurita) obj;
+		return Objects.equals(identificadorUnico, other.identificadorUnico);
 	}
 
 	@Override

@@ -10,6 +10,8 @@ import org.junit.Test;
 import src.Administrador;
 import src.CodigoExistente;
 import src.Figurita;
+import src.FiguritaNoDisponible;
+import src.FiguritaRepetida;
 import src.Usuario;
 import src.UsuarioFinal;
 
@@ -103,25 +105,59 @@ public class TestFiguritas {
 	}
 	
 	
-//	@Test
-//	public void queUnUsuarioFinalPuedaPegarUnaFigurita() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	public void queUnUsuarioFinalPuedaPegarUnaFigurita() throws FiguritaRepetida {
+		Usuario usuarioFinal = new UsuarioFinal("Nico");
+		Figurita figurita = new Figurita("A", "Argentina", "Messi", 100000, 1);
 		
-//	@Test
-//	public void queUnUsuarioFinalNoPuedaPegarUnaFiguritaRepetida() {
-//		fail("Not yet implemented");
-//	}
-//		
-//	@Test
-//	public void  queSePuedaRealizarElIntercambioDeFiguritasEntreDosUsuariosFinales() {
-//		fail("Not yet implemented");
-//	}
-//	
-//	@Test
-//	public void  queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueNoLaTenga() {
-//		fail("Not yet implemented");
-//	}
+		((UsuarioFinal) usuarioFinal).pegarFigurita(figurita);
+		
+		
+		assertTrue(((UsuarioFinal) usuarioFinal).getFiguritasPegadas().contains(figurita));
+	}
+		
+	@Test (expected = FiguritaRepetida.class)
+	public void queUnUsuarioFinalNoPuedaPegarUnaFiguritaRepetida() throws FiguritaRepetida {
+		Usuario usuarioFinal = new UsuarioFinal("Nico");
+		Figurita figurita = new Figurita("A", "Argentina", "Messi", 100000, 1);
+		Figurita figurita2 = new Figurita("A", "Argentina", "Messi", 100000, 1);
+		
+		((UsuarioFinal) usuarioFinal).pegarFigurita(figurita);
+		((UsuarioFinal) usuarioFinal).pegarFigurita(figurita2);
+		
+		assertTrue(((UsuarioFinal) usuarioFinal).getFiguritasPegadas().contains(figurita));
+		assertTrue(((UsuarioFinal) usuarioFinal).getFiguritasPegadas().contains(figurita2));
+	
+	}
+		
+	@Test
+	public void queSePuedaRealizarElIntercambioDeFiguritasEntreDosUsuariosFinales() throws FiguritaNoDisponible, CodigoExistente {
+		Usuario usuario1 = new UsuarioFinal("Nico");
+		Usuario usuario2 = new UsuarioFinal("Martupe");
+		Figurita figurita = new Figurita("A", "Argentina", "Dibu", 100000, 1);
+		Figurita figurita2 = new Figurita("A", "Argentina", "Messi", 100000, 10);
+		
+		usuario1.agregarFigurita(figurita);
+		usuario2.agregarFigurita(figurita2);
+		
+		((UsuarioFinal) usuario1).intercambiar(figurita, figurita2);
+		((UsuarioFinal) usuario2).intercambiar(figurita2, figurita);
+	}
+	
+	@Test (expected = FiguritaNoDisponible.class)
+	public void  queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueNoLaTenga() throws CodigoExistente, FiguritaNoDisponible, FiguritaRepetida {
+		Usuario usuario1 = new UsuarioFinal("Nico");
+		Usuario usuario2 = new UsuarioFinal("Martupe");
+		Figurita figurita = new Figurita("A", "Argentina", "Dibu", 100000, 1);
+		Figurita figurita2 = new Figurita("A", "Argentina", "Messi", 100000, 10);
+		
+		usuario1.agregarFigurita(figurita);
+		usuario2.agregarFigurita(figurita2);
+		((UsuarioFinal) usuario2).pegarFigurita(figurita2);
+		
+		((UsuarioFinal) usuario1).intercambiar(figurita, figurita2);
+		((UsuarioFinal) usuario2).intercambiar(figurita2, figurita);
+	}
 //	@Test
 //	public void  queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueYaLaHayaPegado() {
 //		fail("Not yet implemented");
