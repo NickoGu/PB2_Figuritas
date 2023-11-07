@@ -144,20 +144,21 @@ public class TestFiguritas {
 		((UsuarioFinal) usuario2).intercambiar(figurita2, figurita);
 	}
 	
-//	@Test (expected = FiguritaNoDisponible.class)
-//	public void  queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueNoLaTenga() throws CodigoExistente, FiguritaNoDisponible, FiguritaRepetida {
-//		Usuario usuario1 = new UsuarioFinal("Nico");
-//		Usuario usuario2 = new UsuarioFinal("Martupe");
-//		Figurita figurita = new Figurita("A", "Argentina", "Dibu", 100000, 1);
-//		Figurita figurita2 = new Figurita("A", "Argentina", "Messi", 100000, 10);
-//		
-//		usuario1.agregarFigurita(figurita);
-//		usuario2.agregarFigurita(figurita2);
-//		((UsuarioFinal) usuario2).pegarFigurita(figurita2);
-//		
-//		((UsuarioFinal) usuario1).intercambiar(figurita, figurita2);
-//		((UsuarioFinal) usuario2).intercambiar(figurita2, figurita);
-//	}
+	@Test (expected = FiguritaNoDisponible.class)
+	public void  queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueNoLaTenga() throws CodigoExistente, FiguritaNoDisponible, FiguritaRepetida {
+		Usuario usuario1 = new UsuarioFinal("Nico");
+		Usuario usuario2 = new UsuarioFinal("Martupe");
+		Figurita figurita = new Figurita("A", "Argentina", "Dibu", 100000, 1);
+		Figurita figurita2 = new Figurita("A", "Argentina", "Messi", 100000, 10);
+		
+		usuario1.agregarFigurita(figurita);
+		
+		
+		
+		((UsuarioFinal) usuario1).intercambiar(figurita, figurita2);
+		((UsuarioFinal) usuario2).intercambiar(figurita2, figurita);
+	}
+	
 	@Test (expected = FiguritaNoDisponible.class)
 	public void  queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueYaLaHayaPegado() throws CodigoExistente, FiguritaNoDisponible, FiguritaRepetida {
 		Usuario usuario1 = new UsuarioFinal("Nico");
